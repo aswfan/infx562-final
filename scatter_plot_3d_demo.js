@@ -50,8 +50,7 @@ function scatterPlot3d( parent )
     initializeAxis(2);
   }
 
-  function initializeAxis( axisIndex )
-  {
+  function initializeAxis( axisIndex ) {
     var key = axisKeys[axisIndex];
     drawAxis( axisIndex, key, initialDuration );
 

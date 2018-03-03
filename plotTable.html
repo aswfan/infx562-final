@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+    <style>
+        text {
+            font-family: sans-serif;
+            fill: #000000;
+        }
+        table {
+            /* visibility: hidden; */
+            position: absolute;
+            top: 30px;
+            left: 500px;
+            font-family: sans-serif;
+            font-size: 0.7em;
+        }
+        tr:nth-child(even) {
+            background-color: #d9d9d9;
+        }
+
+        .hovered {
+            fill: #ff3399;
+            stroke: #8e1b54;
+            opacity: 1.0;
+        }
+        .non_hovered {
+            fill: #404040;
+            opacity: 0.5;
+        }
+    </style>
+<body>
+
+    <!--viz-->
+    <div id="chart"></div>
+
+    <!--table for data of brushed elements-->
+    <div id="table">
+        <table>
+            <tr>
+                <th>State</th>
+                <th>Income</th> 
+                <th>High School Graduation</th> 
+            </tr>
+        </table>
+    </div>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <script type="text/javascript">
+
+        var margin = {top: 20, right: 0, bottom: 50, left: 85},
+            svg_dx = 500, 
+            svg_dy = 400,
+            plot_dx = svg_dx - margin.right - margin.left,
+            plot_dy = svg_dy - margin.top - margin.bottom;
+
+        var x = d3.scaleLinear().range([margin.left, plot_dx]),
+            y = d3.scaleLinear().range([plot_dy, margin.top]);
+
+        var formatIncome = d3.format("$,"),
+            formatHsGrad = d3.format(".1%"),
+            formatHsGradAxis = d3.format(".0%");
+
+        var svg = d3.select("#chart")
+                    .append("svg")
+                    .attr("width", svg_dx)
+                    .attr("height", svg_dy);
+
+        d3.csv("data/states.csv", d => {
+
+            var n = d.length;
+
+            var d_extent_x = d3.extent(d, d => +d.income),
+                d_extent_y = d3.extent(d, d => +d.hs_grad);
+
+            x.domain(d_extent_x);
+            y.domain(d_extent_y);
+
+            var axis_x = d3.axisBottom(x)
+                           .tickFormat(formatIncome),
+                axis_y = d3.axisLeft(y)
+                           .tickFormat(formatHsGradAxis);
+
+            svg.append("g")
+               .attr("id", "axis_x")
+               .attr("transform", "translate(0," + (plot_dy + margin.bottom / 2) + ")")
+               .call(axis_x);
+
+            svg.append("g")
+               .attr("id", "axis_y")
+               .attr("transform", "translate(" + (margin.left / 2) + ", 0)")
+               .call(axis_y);
+
+            d3.select("#axis_x")
+              .append("text")
+              .attr("transform", "translate(360, -10)")
+              .text("Per capita income (1974)");
+
+            d3.select("#axis_y")
+              .append("text")
+              .attr("transform", "rotate(-90) translate(-20, 15)")
+              .text("High-school graduates (1970)");
+
+            var circles = svg.append("g")
+                                .selectAll("circle")
+                                .data(d)
+                                .enter()
+                             .append("circle")
+                                .attr("r", 5)
+                                .attr("name", d => d.state)
+                                .attr("cx", (d) => x(+d.income))
+                                .attr("cy", (d) => y(+d.hs_grad))
+                                .attr("class", "non_hovered")
+                                .on("mouseover", circleOver)
+                                .on("mouseout", circleOut);
+
+            d.forEach(d_row => populateTableRow(d_row));
+        });
+
+        function circleOver() {
+            var circle = d3.select(this);
+            circle.attr("class", "hovered");
+            d3.select(`#${circle.attr("name")}`)
+                .attr("style", "background: yellow");
+        }
+
+        function circleOut() {
+            var circle = d3.select(this);
+            circle.attr("class", "non_hovered");
+            d3.select(`#${circle.attr("name")}`)
+                .attr("style", "");
+        }
+
+        function populateTableRow(d_row) {
+            var d_row_filter = [d_row.state, 
+                                formatIncome(d_row.income), 
+                                formatHsGrad(d_row.hs_grad)];
+            d3.select("table")
+              .append("tr")
+                .attr("id", d_row.state)
+                .attr("class", "row_data")
+                .selectAll("td")
+                .data(d_row_filter)
+                .enter()
+              .append("td")
+                .attr("align", (d, i) => i == 0 ? "left" : "right")
+                .text(d => d);
+        }
+
+    </script>
+
+</body>

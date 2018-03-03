@@ -1,21 +1,29 @@
-<!DOCTYPE html >
-<html >
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>3D Scatter Plot</title>
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="https://x3dom.org/x3dom/dist/x3dom-full.js"></script>
-    <script type="text/javascript" src="scatter_plot_3d_demo.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/dev/x3dom.css"/>
-  </head>
-  <body>
-    <div id="divPlot"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final</title>
+</head>
+<body>
+    <div>
+        <h1>Page 1</h1>
+        <div id="page1"></div>
+    </div>
+
+    <div>
+        <h1>Page 2</h1>
+        <div id="page2"></div>
+    </div>
+
+    <div>
+        <h1>Page 3</h1>
+        <div id="page3"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-      d3.select('html').style('height','100%').style('width','100%')
-      d3.select('body').style('height','100%').style('width','100%')
-      d3.select('#divPlot').style('width', "500px").style('height', "500px")
-      scatterPlot3d( d3.select('#divPlot'));
+        $('#page1').load("plotTable.html");
     </script>
-  </body>
+</body>
 </html>
