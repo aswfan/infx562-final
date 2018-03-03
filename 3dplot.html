@@ -4,18 +4,18 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title>3D Scatter Plot</title>
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/d3.v3.js"></script>
     <script type="text/javascript" src="https://x3dom.org/x3dom/dist/x3dom-full.js"></script>
-    <script type="text/javascript" src="scatter_plot_3d_demo.js"></script>
+    <script type="text/javascript" src="js/scatter_plot_3d_demo.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/dev/x3dom.css"/>
   </head>
   <body>
     <div id="divPlot"></div>
     <script>
-      d3.select('html').style('height','100%').style('width','100%')
-      d3.select('body').style('height','100%').style('width','100%')
-      d3.select('#divPlot').style('width', "500px").style('height', "500px")
-      scatterPlot3d( d3.select('#divPlot'));
+      d3v3.select('html').style('height','100%').style('width','100%')
+      d3v3.select('body').style('height','100%').style('width','100%')
+      d3v3.select('#divPlot').style('width', "500px").style('height', "500px")
+      scatterPlot3d( d3v3.select('#divPlot'));
     </script>
   </body>
 </html>

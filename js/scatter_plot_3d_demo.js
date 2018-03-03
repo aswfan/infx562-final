@@ -99,7 +99,7 @@ function scatterPlot3d( parent )
   // Assign key to axis, creating or updating its ticks, grid lines, and labels.
   function drawAxis( axisIndex, key, duration ) {
 
-    var scale = d3.scale.linear()
+    var scale = d3v3.scale.linear()
       .domain( [-5,5] ) // demo data range
       .range( axisRange )
     
