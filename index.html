@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Final</title>
+    <title>final</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <style>
+        iframe{
+            overflow:hidden;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -19,11 +27,12 @@
 
     <div>
         <h1>Page 3</h1>
-        <div id="page3"></div>
+        <!-- <div id="page3"></div> -->
+        <iframe src="3dplot.html" frameBorder="0" style="width:100%; height:100%;"></iframe>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $('#page1').load("plotTable.html");
+        // $('#page3').load("3dplot.html");
     </script>
 </body>
 </html>
