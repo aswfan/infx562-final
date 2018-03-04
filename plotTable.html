@@ -32,9 +32,9 @@
     <div id="table">
         <table>
             <tr>
-                <th>State</th>
-                <th>Income</th> 
-                <th>High School Graduation</th> 
+                <th>dataID</th>
+                <th>Var(X)</th> 
+                <th>Var(Y)</th> 
             </tr>
         </table>
     </div>
@@ -77,16 +77,16 @@
 
             var n = d.length;
 
-            var d_extent_x = d3.extent(d, d => +d.income),
-                d_extent_y = d3.extent(d, d => +d.hs_grad);
+            var d_extent_x = d3.extent(d, d => +d.x),
+                d_extent_y = d3.extent(d, d => +d.y);
 
             x.domain(d_extent_x);
             y.domain(d_extent_y);
 
-            var axis_x = d3.axisBottom(x)
-                           .tickFormat(formatIncome),
-                axis_y = d3.axisLeft(y)
-                           .tickFormat(formatHsGradAxis);
+            var axis_x = d3.axisBottom(x),
+                        //    .tickFormat(formatIncome),
+                axis_y = d3.axisLeft(y);
+                        //    .tickFormat(formatHsGradAxis);
 
             svg.append("g")
                .attr("id", "axis_x")
@@ -100,13 +100,13 @@
 
             d3.select("#axis_x")
               .append("text")
-              .attr("transform", "translate(360, -10)")
-              .text("Per capita income (1974)");
+              .attr("transform", "translate(400, -10)")
+              .text("X");
 
             d3.select("#axis_y")
               .append("text")
               .attr("transform", "rotate(-90) translate(-20, 15)")
-              .text("High-school graduates (1970)");
+              .text("Y");
 
             var circles = svg.append("g")
                                 .selectAll("circle")
@@ -114,14 +114,13 @@
                                 .enter()
                              .append("circle")
                                 .attr("r", 5)
-                                .attr("name", d => d.state)
-                                .attr("cx", (d) => x(+d.income))
-                                .attr("cy", (d) => y(+d.hs_grad))
+                                .attr("name", d => d.id)
+                                .attr("cx", (d) => x(+d.x))
+                                .attr("cy", (d) => y(+d.y))
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
                                 .on("mouseout", circleOut);
 
-            d.forEach(d_row => populateTableRow(d_row));
 
             // x variance
             x_line.append("g")
@@ -131,8 +130,8 @@
             
             d3.select("#variance_x_line")
               .append("text")
-              .attr("transform", "translate(360, -10)")
-              .text("Per capita income (1974)");
+              .attr("transform", "translate(400, -10)")
+              .text("variance X");
             
             var variance_horizontal_circles = x_line.append("g")
                                 .selectAll("circle")
@@ -140,8 +139,8 @@
                                 .enter()
                              .append("circle")
                                 .attr("r", 5)
-                                .attr("name", d => d.state)
-                                .attr("cx", (d) => x(+d.income))
+                                .attr("name", d => d.id)
+                                .attr("cx", (d) => x(+d.x))
                                 .attr("cy", 50)
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
@@ -158,8 +157,8 @@
             
             d3.select("#variance_y_line")
               .append("text")
-              .attr("transform", "translate(360, -10)")
-              .text("High-school graduates (1970)");
+              .attr("transform", "translate(400, -10)")
+              .text("variance Y");
             
             var variance_horizontal_circles = y_line.append("g")
                                 .selectAll("circle")
@@ -167,12 +166,14 @@
                                 .enter()
                              .append("circle")
                                 .attr("r", 5)
-                                .attr("name", d => d.state)
-                                .attr("cx", (d) => hy(+d.hs_grad))
+                                .attr("name", d => d.id)
+                                .attr("cx", (d) => hy(+d.y))
                                 .attr("cy", 50)
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
                                 .on("mouseout", circleOut);
+            
+            d.forEach(d_row => populateTableRow(d_row));
         });
 
         function circleOver() {
@@ -190,12 +191,12 @@
         }
 
         function populateTableRow(d_row) {
-            var d_row_filter = [d_row.state, 
-                                formatIncome(d_row.income), 
-                                formatHsGrad(d_row.hs_grad)];
+            var d_row_filter = [d_row.id, d_row.varx, d_row.vary];
+                                // formatIncome(d_row.varx), 
+                                // formatHsGrad(d_row.vary)];
             d3.select("table")
               .append("tr")
-                .attr("id", d_row.state)
+                .attr("id", d_row.id)
                 .attr("class", "row_data")
                 .selectAll("td")
                 .data(d_row_filter)
