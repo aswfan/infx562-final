@@ -52,7 +52,7 @@
 
         var x = d3.scaleLinear().range([margin.left, plot_dx]),
             y = d3.scaleLinear().range([plot_dy, margin.top]),
-            hy = d3.scaleLinear().range([margin.top, plot_dy]);
+            hy = d3.scaleLinear().range([margin.left, plot_dx]);
 
         var formatIncome = d3.format("$,"),
             formatHsGrad = d3.format(".1%"),
@@ -126,7 +126,7 @@
             // x variance
             x_line.append("g")
                .attr("id", "variance_x_line")
-               .attr("transform", "translate(0,50)")
+               .attr("transform", "translate(0, 50)")
                .call(axis_x);
             
             d3.select("#variance_x_line")
@@ -153,7 +153,7 @@
                                  .tickFormat(formatHsGradAxis);
             y_line.append("g")
                .attr("id", "variance_y_line")
-               .attr("transform", "translate(0,50)")
+               .attr("transform", "translate(0, 50)")
                .call(horizontal_y);
             
             d3.select("#variance_y_line")
