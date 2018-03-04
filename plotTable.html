@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
     text {
         font-family: sans-serif;
@@ -39,7 +38,8 @@
             </tr>
         </table>
     </div>
-    <div id="variance"></div>
+    <div id="variance_x"></div>
+    <div id="variance_y"></div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <script type="text/javascript">
@@ -51,7 +51,8 @@
             plot_dy = svg_dy - margin.top - margin.bottom;
 
         var x = d3.scaleLinear().range([margin.left, plot_dx]),
-            y = d3.scaleLinear().range([plot_dy, margin.top]);
+            y = d3.scaleLinear().range([plot_dy, margin.top]),
+            hy = d3.scaleLinear().range([margin.top, plot_dy]);
 
         var formatIncome = d3.format("$,"),
             formatHsGrad = d3.format(".1%"),
@@ -62,14 +63,14 @@
                     .attr("width", svg_dx)
                     .attr("height", svg_dy);
 
-        var x_line = d3.select("#variance")
+        var x_line = d3.select("#variance_x")
                        .append("svg")
-                       .attr("width", "100%")
+                       .attr("width", svg_dx)
                        .attr("height", 70);
 
-        var y_line = d3.select("#variance")
+        var y_line = d3.select("#variance_y")
                        .append("svg")
-                       .attr("width", "100%")
+                       .attr("width", svg_dx)
                        .attr("height", 70);
 
         d3.csv("data/states.csv", d => {
@@ -122,13 +123,13 @@
 
             d.forEach(d_row => populateTableRow(d_row));
 
-            // horizontal variance
+            // x variance
             x_line.append("g")
-               .attr("id", "variance_horizontal_line")
+               .attr("id", "variance_x_line")
                .attr("transform", "translate(0,50)")
                .call(axis_x);
             
-            d3.select("#variance_horizontal_line")
+            d3.select("#variance_x_line")
               .append("text")
               .attr("transform", "translate(360, -10)")
               .text("Per capita income (1974)");
@@ -146,15 +147,16 @@
                                 .on("mouseover", circleOver)
                                 .on("mouseout", circleOut);
 
-            // vertical variance
-            var horizontal_y = d3.axisBottom(y)
+            // y variance
+            hy.domain(d_extent_y);
+            var horizontal_y = d3.axisBottom(hy)
                                  .tickFormat(formatHsGradAxis);
             y_line.append("g")
-               .attr("id", "variance_vertical_line")
-               .attr("transform", "translate(0,100)")
+               .attr("id", "variance_y_line")
+               .attr("transform", "translate(0,50)")
                .call(horizontal_y);
             
-            d3.select("#variance_vertical_line")
+            d3.select("#variance_y_line")
               .append("text")
               .attr("transform", "translate(360, -10)")
               .text("High-school graduates (1970)");
@@ -166,8 +168,8 @@
                              .append("circle")
                                 .attr("r", 5)
                                 .attr("name", d => d.state)
-                                .attr("cx", (d) => y(+d.hs_grad))
-                                .attr("cy", 100)
+                                .attr("cx", (d) => hy(+d.hs_grad))
+                                .attr("cy", 50)
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
                                 .on("mouseout", circleOut);
