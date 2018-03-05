@@ -61,6 +61,7 @@
 
         var x = d3.scaleLinear().range([margin.left, plot_dx]),
             y = d3.scaleLinear().range([plot_dy, margin.top]),
+            hx = d3.scaleLinear().range([margin.left, plot_dx]);
             hy = d3.scaleLinear().range([margin.left, plot_dx]);
 
         var formatIncome = d3.format("$,"),
@@ -87,7 +88,9 @@
             var n = d.length;
 
             var d_extent_x = d3.extent(d, d => +d.x),
-                d_extent_y = d3.extent(d, d => +d.y);
+                d_extent_y = d3.extent(d, d => +d.y),
+                d_variance_x = d3.extent(d, d => +d.varx),
+                d_variance_y = d3.extent(d, d => +d.vary);
 
             x.domain(d_extent_x);
             y.domain(d_extent_y);
@@ -132,10 +135,13 @@
 
 
             // x variance
+            hx.domain(d_variance_x);
+            var horizontal_x = d3.axisBottom(hx);
+
             x_line.append("g")
                .attr("id", "variance_x_line")
                .attr("transform", "translate(0, 50)")
-               .call(axis_x);
+               .call(horizontal_x);
             
             d3.select("#variance_x_line")
               .append("text")
@@ -149,14 +155,14 @@
                              .append("circle")
                                 .attr("r", 5)
                                 .attr("name", d => d.id)
-                                .attr("cx", (d) => x(+d.x))
+                                .attr("cx", (d) => hx(+d.varx))
                                 .attr("cy", 50)
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
                                 .on("mouseout", circleOut);
 
             // y variance
-            hy.domain(d_extent_y);
+            hy.domain(d_variance_y);
             var horizontal_y = d3.axisBottom(hy);
                                 //  .tickFormat(formatHsGradAxis);
             y_line.append("g")
@@ -176,7 +182,7 @@
                              .append("circle")
                                 .attr("r", 5)
                                 .attr("name", d => d.id)
-                                .attr("cx", (d) => hy(+d.y))
+                                .attr("cx", (d) => hy(+d.vary))
                                 .attr("cy", 50)
                                 .attr("class", "non_hovered")
                                 .on("mouseover", circleOver)
