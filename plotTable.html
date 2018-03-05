@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
     text {
         font-family: sans-serif;
@@ -9,7 +10,7 @@
         /* visibility: hidden; */
         position: absolute;
         top: 30px;
-        left: 500px;
+        /* left: 500px; */
         font-family: sans-serif;
         font-size: 0.7em;
     }
@@ -28,18 +29,26 @@
     }
 </style>
 <body>
-    <div id="chart"></div>
-    <div id="table">
-        <table>
-            <tr>
-                <th>dataID</th>
-                <th>Var(X)</th> 
-                <th>Var(Y)</th> 
-            </tr>
-        </table>
+    <div class="canvas">
+        <div class="row">
+            <div id="chart" class="col-sm col-md"></div>
+            <div id="table" class="col-sm col-md">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Var(X)</th> 
+                        <th>Var(Y)</th> 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div id="variance_x"></div>
+        </div>
+        <div class="row">
+            <div id="variance_y"></div>
+        </div>
     </div>
-    <div id="variance_x"></div>
-    <div id="variance_y"></div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <script type="text/javascript">
@@ -148,8 +157,8 @@
 
             // y variance
             hy.domain(d_extent_y);
-            var horizontal_y = d3.axisBottom(hy)
-                                 .tickFormat(formatHsGradAxis);
+            var horizontal_y = d3.axisBottom(hy);
+                                //  .tickFormat(formatHsGradAxis);
             y_line.append("g")
                .attr("id", "variance_y_line")
                .attr("transform", "translate(0, 50)")
