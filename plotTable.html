@@ -18,8 +18,8 @@
     }
 
     .hovered {
-        fill: #ff3399;
-        stroke: #8e1b54;
+        fill: red;
+        stroke: red;
         opacity: 1.0;
     }
     .non_hovered {
@@ -177,16 +177,32 @@
         });
 
         function circleOver() {
-            var circle = d3.select(this);
-            circle.attr("class", "hovered");
-            d3.select(`#${circle.attr("name")}`)
-                .attr("style", "background: yellow");
+            var id = d3.select(this).attr("name");
+            d3.select(`#chart circle[name=${id}]`)
+                .attr("class", "hovered")
+                .attr("r", 8);
+            d3.select(`#variance_x circle[name=${id}]`)
+                .attr("class", "hovered")
+                .attr("r", 8);
+            d3.select(`#variance_y circle[name=${id}]`)
+                .attr("class", "hovered")
+                .attr("r", 8);
+            d3.select(`#${id}`)
+                .attr("style", "background: red");
         }
 
         function circleOut() {
-            var circle = d3.select(this);
-            circle.attr("class", "non_hovered");
-            d3.select(`#${circle.attr("name")}`)
+            var id = d3.select(this).attr("name");
+            d3.select(`#chart circle[name=${id}]`)
+                .attr("class", "non_hovered")
+                .attr("r", 5);
+            d3.select(`#variance_x circle[name=${id}]`)
+                .attr("class", "non_hovered")
+                .attr("r", 5);
+            d3.select(`#variance_y circle[name=${id}]`)
+                .attr("class", "non_hovered")
+                .attr("r", 5);
+            d3.select(`#${id}`)
                 .attr("style", "");
         }
 
