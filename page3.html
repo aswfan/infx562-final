@@ -141,31 +141,31 @@
                                                             .attr("cx", (d) => hy(+d.vary))
                                                             .attr("cy", 50)
                                                             .attr("class", "non_hovered")
-                                                            .on("mouseover", circleOver)
-                                                            .on("mouseout", circleOut);
+                                                            .on("mouseover", p3_circleOver)
+                                                            .on("mouseout", p3_circleOut);
                                     }
                                 });
             });
         });
 
-        function circleOver() {
-            var id = d3.select(this).attr("name");
-            d3.select(`#p3_variance_x circle[name=${id}]`)
-                .attr("class", "hovered")
-                .attr("r", 8);
-            d3.select(`#p3_variance_y circle[name=${id}]`)
-                .attr("class", "hovered")
-                .attr("r", 8);
+        function p3_circleOver() {
+            // var id = d3.select(this).attr("name");
+            // d3.select(`#p3_variance_x circle[name=${id}]`)
+            //     .attr("class", "hovered")
+            //     .attr("r", 8);
+            // d3.select(`#p3_variance_y circle[name=${id}]`)
+            //     .attr("class", "hovered")
+            //     .attr("r", 8);
         }
 
-        function circleOut() {
-            var id = d3.select(this).attr("name");
-            d3.select(`#p3_variance_x circle[name=${id}]`)
-                .attr("class", "non_hovered")
-                .attr("r", 5);
-            d3.select(`#p3_variance_y circle[name=${id}]`)
-                .attr("class", "non_hovered")
-                .attr("r", 5);
+        function p3_circleOut() {
+            // var id = d3.select(this).attr("name");
+            // d3.select(`#p3_variance_x circle[name=${id}]`)
+            //     .attr("class", "non_hovered")
+            //     .attr("r", 5);
+            // d3.select(`#p3_variance_y circle[name=${id}]`)
+            //     .attr("class", "non_hovered")
+            //     .attr("r", 5);
         }
 
     </script>
