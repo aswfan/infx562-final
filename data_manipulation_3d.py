@@ -41,24 +41,68 @@ def calculate_y(row):
 
 state['z']=state.apply(calculate_y, axis=1)
 
-'''
-#Get varx
-mean_x=np.mean(state[0])
-def calculate_var(row):
-    return row[0]-mean_x
+#Create States_transform_data
+data_ori=state
 
-state['varx']=state.apply(calculate_var,axis=1)
+pca=PCA(n_components=3)
 
-#Get vary
-mean_y=np.mean(state['y'])
-def calculate_var(row):
-    return row['y']-mean_y
+pca.fit(data_ori)
 
-state['vary']=state.apply(calculate_var,axis=1)
+data_transform=pd.DataFrame(pca.transform(data_ori))
+
+data_transform=data_transform.round(1)
+
+#Reindex
+state=state.reset_index()
+
+data_transform.reindex()
+
+data_ori=pd.concat([state,data_transform], axis=1)
+
+#Rename col
+data_ori=data_ori.rename(columns={'index':'label'})
+
+#Add column step
+data_ori["step"]=1
+     
+#add more dataset
+
+data_ori_1=data_ori
+
+
+#Second Round Dataset#######################################################################
+
+#Create State data
+
+data_3d=pd.DataFrame(np.array(range(101,116)),np.array(["a"]*15))
+
+data_3d2=pd.DataFrame(np.array(range(31,46)),np.array(["b"]*15))
+
+data_3d3=pd.DataFrame(np.array(range(1,16)),np.array(["c"]*15))
+
+state=data_3d3.append(data_3d.append(data_3d2))
+
 
 #Rename col
 state=state.rename(columns={0:'x'})
-'''
+
+#Normalize
+
+state=(state-state.mean())/state.std()    
+
+
+
+#Use the x1 to get x2
+def calculate_y(row):
+    return row[0] * 3
+
+state['y']=state.apply(calculate_y, axis=1)
+
+#Use the x1 to get x3
+def calculate_y(row):
+    return row[0] * 2 -np.random.random()
+
+state['z']=state.apply(calculate_y, axis=1)
 
 #Create States_transform_data
 data_ori=state
@@ -69,30 +113,13 @@ pca.fit(data_ori)
 
 data_transform=pd.DataFrame(pca.transform(data_ori))
 
-#data_ori['id']=np.array(list(string.ascii_lowercase)[0:12])
-
-#Get var after transform
-#Get varpc1
-'''
-mean_pc1=np.mean(data_ori['pc1'])
-def calculate_var(row):
-    return row['pc1']-mean_pc1
-
-data_ori['varpc1']=state.apply(calculate_var,axis=1)
-
-#Get varpc2
-mean_pc2=np.mean(data_ori['pc2'])
-def calculate_var(row):
-    return row['pc2']-mean_pc2
-
-data_ori['varpc2']=state.apply(calculate_var,axis=1)
-'''
-
-plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
+#plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
 
 data_transform=data_transform.round(1)
 
+#Reindex
 state=state.reset_index()
+
 data_transform.reindex()
 
 data_ori=pd.concat([state,data_transform], axis=1)
@@ -100,5 +127,147 @@ data_ori=pd.concat([state,data_transform], axis=1)
 #Rename col
 data_ori=data_ori.rename(columns={'index':'label'})
 
+#Add column step
+data_ori["step"]=2
+#add more dataset
 
-data_ori.to_csv("data/3data.csv")
+data_ori_2=data_ori
+
+
+#Third Round Dataset#######################################################################
+
+#Create State data
+
+data_3d=pd.DataFrame(np.array(range(1,16)),np.array(["a"]*15))
+
+data_3d2=pd.DataFrame(np.array(range(111,126)),np.array(["b"]*15))
+
+data_3d3=pd.DataFrame(np.array(range(51,66)),np.array(["c"]*15))
+
+state=data_3d3.append(data_3d.append(data_3d2))
+
+
+#Rename col
+state=state.rename(columns={0:'x'})
+
+#Normalize
+
+state=(state-state.mean())/state.std()    
+
+
+
+#Use the x1 to get x2
+def calculate_y(row):
+    return row[0] * 3+np.random.random()
+
+state['y']=state.apply(calculate_y, axis=1)
+
+#Use the x1 to get x3
+def calculate_y(row):
+    return row[0] * 2 -np.random.random()*(np.square(row[0]))*np.cos(row[0])
+
+state['z']=state.apply(calculate_y, axis=1)
+
+#Create States_transform_data
+data_ori=state
+
+pca=PCA(n_components=3)
+
+pca.fit(data_ori)
+
+data_transform=pd.DataFrame(pca.transform(data_ori))
+
+#plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
+
+data_transform=data_transform.round(1)
+
+#Reindex
+state=state.reset_index()
+
+data_transform.reindex()
+
+data_ori=pd.concat([state,data_transform], axis=1)
+
+#Rename col
+data_ori=data_ori.rename(columns={'index':'label'})
+
+#Add column step
+data_ori["step"]=3
+#add more dataset
+
+data_ori_3=data_ori
+
+
+#Fourth Round Dataset#######################################################################
+
+#Create State data
+
+data_3d=pd.DataFrame(np.array(range(21,36)),np.array(["a"]*15))
+
+data_3d2=pd.DataFrame(np.array(range(61,76)),np.array(["b"]*15))
+
+data_3d3=pd.DataFrame(np.array(range(91,106)),np.array(["c"]*15))
+
+state=data_3d3.append(data_3d.append(data_3d2))
+
+
+#Rename col
+state=state.rename(columns={0:'x'})
+
+#Normalize
+
+state=(state-state.mean())/state.std()    
+
+
+
+#Use the x1 to get x2
+def calculate_y(row):
+    return row[0] * 3+np.random.random()
+
+state['y']=state.apply(calculate_y, axis=1)
+
+#Use the x1 to get x3
+def calculate_y(row):
+    return row[0] * 2 -np.random.random()*(np.square(row[0]))
+
+state['z']=state.apply(calculate_y, axis=1)
+
+#Create States_transform_data
+data_ori=state
+
+pca=PCA(n_components=3)
+
+pca.fit(data_ori)
+
+data_transform=pd.DataFrame(pca.transform(data_ori))
+
+#plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
+
+data_transform=data_transform.round(1)
+
+#Reindex
+state=state.reset_index()
+
+data_transform.reindex()
+
+data_ori=pd.concat([state,data_transform], axis=1)
+
+#Rename col
+data_ori=data_ori.rename(columns={'index':'label'})
+
+#Add column step
+data_ori["step"]=4
+#add more dataset
+
+data_ori_4=data_ori
+
+#plot
+plt.scatter(data_ori_4.loc[:,0],data_ori.loc[:,1]) 
+#Save all data
+
+#Combine and save
+data_final=pd.concat([data_ori,data_ori_1,data_ori_2,data_ori_3,data_ori_4])
+data_final.to_csv("data/3data.csv")
+
+
+

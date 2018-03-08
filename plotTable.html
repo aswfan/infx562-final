@@ -70,19 +70,6 @@
             <div id="variance_y"></div>
             <div id="variance_pc2"></div>
         </div>
-        <!---//---------------------------------------------------
-        //AW ADD Code Start from here - for 2nd coordinates
-        //---------------------------------------------------->
-        <div class="row">
-           
-        </div>
-        <div class="row">
-            
-        </div>
-                         
-        <!---//---------------------------------------------------
-        //AW ADD Code end here - for 2nd coordinates
-        //---------------------------------------------------->
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -262,7 +249,7 @@
             d_pc2_var = d3.extent(d, d => +d.varpc2);
 
             pc1.domain(d_pc1);
-            pc2.domain(d_pc2);
+            pc2.domain(d_pc1);
 
             var axis_pc1 = d3.axisBottom(pc1),
                         //    .tickFormat(formatIncome),
