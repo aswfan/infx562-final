@@ -1,5 +1,19 @@
 <!DOCTYPE html >
 <html >
+  <style>
+    .button {
+    background-color: #069; /* Orange */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+  </style>
   <head>
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -10,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/dev/x3dom.css"/>
   </head>
   <body>
+    <button class="button" onclick="moveData()">Move Data</button>
     <div id="divPlot"></div>
     <script>
       d3v3.select('html').style('height','100%').style('width','100%')

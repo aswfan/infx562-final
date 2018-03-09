@@ -266,7 +266,7 @@ plt.scatter(data_ori_4.loc[:,0],data_ori.loc[:,1])
 #Save all data
 
 #Combine and save
-data_final=pd.concat([data_ori,data_ori_1,data_ori_2,data_ori_3,data_ori_4])
+data_final=pd.concat([data_ori_1,data_ori_2,data_ori_3,data_ori_4])
 data_final.to_csv("data/3data.csv")
 
 

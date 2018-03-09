@@ -174,7 +174,9 @@ function scatterPlot3d( parent )
 
   // Update the data points (spheres) and stems.
   function plotData( duration ) {
+
     
+
     if (!rows) {
      console.log("no rows to plot.")
      return;
@@ -231,20 +233,39 @@ function scatterPlot3d( parent )
            function(row) { return [1, y(row[axisKeys[1]])]; })
   }
 
+
   function initializeDataGrid() {
     var rows = [];
+ 
+
     // Follow the convention where y(x,z) is elevation.
-    for (var x=-5; x<=5; x+=1) {
+    for (var x=-5; x<=5; x+=1) { 
       for (var z=-5; z<=5; z+=1) {
         rows.push({x: x, y: 0, z: z});
      }
     }
+    
     return rows;
+    
   }
 
   function updateData() {
     time += Math.PI/8;
     if ( x3d.node() && x3d.node().runtime ) {
+
+  //-------------------------------------------------------------
+  //AW code added starts here
+  //-------------------------------------------------------------
+      read.csv("data/3data.csv",function(d){
+
+      
+
+  });
+//-------------------------------------------------------------
+  //AW code added ends here
+  //-------------------------------------------------------------
+
+
       for (var r=0; r<rows.length; ++r) {
         var x = rows[r].x;
         var z = rows[r].z;
@@ -256,7 +277,9 @@ function scatterPlot3d( parent )
     }
   }
 
+
   initializeDataGrid();
+  console.log(rows)
   initializePlot();
   setInterval( updateData, defaultDuration );
 }
