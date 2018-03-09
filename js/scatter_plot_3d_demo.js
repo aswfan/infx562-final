@@ -253,19 +253,6 @@ function scatterPlot3d( parent )
     time += Math.PI/8;
     if ( x3d.node() && x3d.node().runtime ) {
 
-  //-------------------------------------------------------------
-  //AW code added starts here
-  //-------------------------------------------------------------
-      read.csv("data/3data.csv",function(d){
-
-      
-
-  });
-//-------------------------------------------------------------
-  //AW code added ends here
-  //-------------------------------------------------------------
-
-
       for (var r=0; r<rows.length; ++r) {
         var x = rows[r].x;
         var z = rows[r].z;
