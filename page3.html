@@ -55,6 +55,7 @@
         d3.csv("data/states.csv", d => {
 
             Object.keys(d[0]).forEach(it => {
+                if(it === '') return;
                 inputconsole.append("div")
                                 .attr("class", "btnDiv")
                             .append("button")
@@ -114,8 +115,8 @@
                                                             .attr("cx", (d) => hx(+d.varx))
                                                             .attr("cy", 50)
                                                             .attr("class", "non_hovered")
-                                                            .on("mouseover", circleOver)
-                                                            .on("mouseout", circleOut);
+                                                            .on("mouseover", p3_circleOver)
+                                                            .on("mouseout", p3_circleOut);
 
                                         // y variance
                                         hy.domain(d_variance_y);
