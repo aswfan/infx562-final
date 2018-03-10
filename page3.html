@@ -55,6 +55,7 @@
         d3.csv("data/states.csv", d => {
 
             Object.keys(d[0]).forEach(it => {
+                if(it === '') return;
                 inputconsole.append("div")
                                 .attr("class", "btnDiv")
                             .append("button")
