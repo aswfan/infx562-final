@@ -1,19 +1,5 @@
 <!DOCTYPE html >
 <html >
-  <style>
-    .button {
-    background-color: #069; /* Orange */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-  </style>
   <head>
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -22,14 +8,33 @@
     <script type="text/javascript" src="https://x3dom.org/x3dom/dist/x3dom-full.js"></script>
     <script type="text/javascript" src="js/scatter_plot_3d_demo.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/dev/x3dom.css"/>
+    <style>
+      .button {
+      background-color: #069; /* Orange */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+  }
+    </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <button class="button" onclick="moveData()">Move Data</button>
-    <div id="divPlot"></div>
+    <!-- <button class="button" onclick="moveData()">Move Data</button> -->
+    <div class="canvas">
+      <div class="row">
+        <div id="divPlot" class="col-xs-12 col-md-12"></div>
+      </div>
+    </div>
     <script>
-      d3v3.select('html').style('height','100%').style('width','100%')
-      d3v3.select('body').style('height','100%').style('width','100%')
-      d3v3.select('#divPlot').style('width', "500px").style('height', "500px")
+      d3v3.select('html').style('height','100%').style('width','100%');
+      d3v3.select('body').style('height','100%').style('width','100%');
+      d3v3.select('#divPlot').style('height', "500px");//.style('width', "500px");
       scatterPlot3d( d3v3.select('#divPlot'));
     </script>
   </body>
