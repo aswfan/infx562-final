@@ -22,19 +22,14 @@
       cursor: pointer;
   }
     </style>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
     <!-- <button class="button" onclick="moveData()">Move Data</button> -->
-    <div class="canvas">
-      <div class="row">
-        <div id="divPlot" class="col-xs-6 col-md-6"></div>
-      </div>
-    </div>
+      <div id="divPlot"></div>
     <script>
       d3v3.select('html').style('height','100%').style('width','100%');
       d3v3.select('body').style('height','100%').style('width','100%');
-      d3v3.select('#divPlot').style('height', "500px");//.style('width', "500px");
+      d3v3.select('#divPlot').style('height', "500px").style('width', "500px");
       scatterPlot3d( d3v3.select('#divPlot'));
     </script>
   </body>
