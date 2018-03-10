@@ -23,11 +23,9 @@ state=data_3d3.append(data_3d.append(data_3d2))
 #Rename col
 state=state.rename(columns={0:'x'})
 
-#Normalize
+#Normalize 
 
-state=(state-state.mean())/state.std()    
-
-
+state=(state-state.mean())/state.std() 
 
 #Use the x1 to get x2
 def calculate_y(row):
@@ -40,6 +38,16 @@ def calculate_y(row):
     return row[0] * 2 -np.random.random()*5
 
 state['z']=state.apply(calculate_y, axis=1)
+
+#and shift to range(0,1)
+state['x']=state['x']-min(state['x'])
+state['y']=state['y']-min(state['y'])
+state['z']=state['z']-min(state['z'])   
+
+state['x']=state['x']/max(state['x'])
+state['y']=state['y']/max(state['y'])
+state['z']=state['z']/max(state['z'])
+
 
 #Create States_transform_data
 data_ori=state
@@ -86,23 +94,30 @@ state=data_3d3.append(data_3d.append(data_3d2))
 #Rename col
 state=state.rename(columns={0:'x'})
 
-#Normalize
+#Normalize 
 
-state=(state-state.mean())/state.std()    
-
-
+state=(state-state.mean())/state.std() 
 
 #Use the x1 to get x2
 def calculate_y(row):
-    return row[0] * 3
+    return row[0] * 3 +np.random.random()*row[0]
 
 state['y']=state.apply(calculate_y, axis=1)
 
 #Use the x1 to get x3
 def calculate_y(row):
-    return row[0] * 2 -np.random.random()
+    return row[0] * 2 -np.random.random()*5
 
 state['z']=state.apply(calculate_y, axis=1)
+
+#and shift to range(0,1)
+state['x']=state['x']-min(state['x'])
+state['y']=state['y']-min(state['y'])
+state['z']=state['z']-min(state['z'])   
+
+state['x']=state['x']/max(state['x'])
+state['y']=state['y']/max(state['y'])
+state['z']=state['z']/max(state['z'])
 
 #Create States_transform_data
 data_ori=state
@@ -150,23 +165,30 @@ state=data_3d3.append(data_3d.append(data_3d2))
 #Rename col
 state=state.rename(columns={0:'x'})
 
-#Normalize
+#Normalize 
 
-state=(state-state.mean())/state.std()    
-
-
+state=(state-state.mean())/state.std() 
 
 #Use the x1 to get x2
 def calculate_y(row):
-    return row[0] * 3+np.random.random()
+    return row[0] * 3 +np.random.random()*row[0]
 
 state['y']=state.apply(calculate_y, axis=1)
 
 #Use the x1 to get x3
 def calculate_y(row):
-    return row[0] * 2 -np.random.random()*(np.square(row[0]))*np.cos(row[0])
+    return row[0] * 2 -np.random.random()*5
 
 state['z']=state.apply(calculate_y, axis=1)
+
+#and shift to range(0,1)
+state['x']=state['x']-min(state['x'])
+state['y']=state['y']-min(state['y'])
+state['z']=state['z']-min(state['z'])   
+
+state['x']=state['x']/max(state['x'])
+state['y']=state['y']/max(state['y'])
+state['z']=state['z']/max(state['z'])
 
 #Create States_transform_data
 data_ori=state
@@ -214,23 +236,30 @@ state=data_3d3.append(data_3d.append(data_3d2))
 #Rename col
 state=state.rename(columns={0:'x'})
 
-#Normalize
+#Normalize 
 
-state=(state-state.mean())/state.std()    
-
-
+state=(state-state.mean())/state.std() 
 
 #Use the x1 to get x2
 def calculate_y(row):
-    return row[0] * 3+np.random.random()
+    return row[0] * 3 +np.random.random()*row[0]
 
 state['y']=state.apply(calculate_y, axis=1)
 
 #Use the x1 to get x3
 def calculate_y(row):
-    return row[0] * 2 -np.random.random()*(np.square(row[0]))
+    return row[0] * 2 -np.random.random()*5
 
 state['z']=state.apply(calculate_y, axis=1)
+
+#and shift to range(0,1)
+state['x']=state['x']-min(state['x'])
+state['y']=state['y']-min(state['y'])
+state['z']=state['z']-min(state['z'])   
+
+state['x']=state['x']/max(state['x'])
+state['y']=state['y']/max(state['y'])
+state['z']=state['z']/max(state['z'])
 
 #Create States_transform_data
 data_ori=state
@@ -262,7 +291,7 @@ data_ori["step"]=4
 data_ori_4=data_ori
 
 #plot
-plt.scatter(data_ori_4.loc[:,0],data_ori.loc[:,1]) 
+plt.scatter(data_ori_1.loc[:,0],data_ori.loc[:,1]) 
 #Save all data
 
 #Combine and save
