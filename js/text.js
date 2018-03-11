@@ -25,5 +25,7 @@ page2.append('p')
     //.style("font-size","12px");
 
 page3.append('p')
-    .text("In this page we would like to explore other datasets with high dimensionality.");
+    .text("In this page we would like to explore other datasets with high dimensionality.")
+    .append('p')
+    .text("The dataset is Wholesale Customers Data Set (https://archive.ics.uci.edu/ml/datasets/wholesale+customers#). This dataset has eight attributes. Six (fresh, milk, grocery, ect.) are annual spending on different types of products(quantitative variables). The rest two (Channel and Region) are nominal varianles. By clicking the buttons on the left hand side, the axes will show variance of each variable. The axes on the right hand side shows variance of principal components.")
 
