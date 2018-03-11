@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>final</title>
+    <title>Visualization for Principal Component Analysis</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <style>
@@ -39,16 +39,16 @@
             font-weight: 400;
             line-height: 24px;
             margin: 0 0 14px;
-            text-indent: 30px;
+            text-indent: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 10px;
+            padding-bottom: 0px;
+            text-align: left;
         }
 
         h1 {
-            color: #F90B6D;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 34px;
-            font-weight: 300;
-            line-height: 40px;
-            margin: 0 0 16px;
+            padding-left: 20px;
         }
 
         .banner {
@@ -66,35 +66,65 @@
 </head>
 
 <body>
-    <div class="banner">What is Principal Component Analysis?</div>
-    <div class="page">
-        <div class="textbox" id="page0text"></div>
-    </div>
-
-
-    <div class="page">
-        <h1>2D Example</h1>
-        <div class="textbox" id="page1text"></div>
-        <div id="page1"></div>
-    </div>
-
     <div>
-        <h1>Page 2</h1>
-        <div class="textbox" id="page2text"></div>
-        <div id="page2"></div>
+        <div class="banner">Visualization for Principal Component Analysis</div>
     </div>
 
-    <div>
-        <h1>Page 3</h1>
-        <div class="textbox" id="page3text"></div>
-        <div id="page3"></div>
+    <div class="pt-triggers">
+        <div class="row">
+            <div class="col-sm-3">
+                <button id="button1" class="pt-touch-button">About</button>
+            </div>
+            <div class="col-sm-3">
+                <button id="button2" class="pt-touch-button">2D Example</button>
+            </div>
+            <div class="col-sm-3">
+                <button id="button3" class="pt-touch-button">3D Example</button>
+            </div>
+            <div class="col-sm-3">
+                <button id="button4" class="pt-touch-button">Dataset</button>
+            </div>
+        </div>
+        <!-- /dl-menu-wrapper-->
     </div>
+    <!-- /triggers -->
+
+    <div id="pt-main" class="pt-perspective">
+        <div class="pt-page pt-page-1">
+            <h1>Why Do We Care?</h1>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="textbox" id="page0text"></div>
+        </div>
+        <div class="pt-page pt-page-2">
+            <div class="textbox" id="page1text"></div>
+            <div id="page1"></div>
+        </div>
+        <div class="pt-page pt-page-3">
+            <div class="textbox" id="page2text"></div>
+            <div id="page2"></div>
+        </div>
+        <div class="pt-page pt-page-4">
+            <h1>Page 3</h1>
+            <div class="textbox" id="page3text"></div>
+            <div id="page3"></div>
+        </div>
+        <!-- <div class="pt-page pt-page-4"><h1><span>A collection of</span><strong>Page</strong> Transitions</h1></div>-->
+    </div>
+
+
     <script>
         $('#page1').load("page1.html");
         $('#page2').load("page2.html");
         $('#page3').load("page3.html");
     </script>
-    <script src="js/text.js"></script>
+     <script src="js/text.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <script src="js/jquery.dlmenu.js"></script>
+     <script src="js/pagetransitions.js"></script>
 </body>
 
 </html>
