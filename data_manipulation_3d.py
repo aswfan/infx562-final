@@ -58,8 +58,6 @@ pca.fit(data_ori)
 
 data_transform=pd.DataFrame(pca.transform(data_ori))
 
-data_transform=data_transform.round(1)
-
 #Reindex
 state=state.reset_index()
 
@@ -130,7 +128,7 @@ data_transform=pd.DataFrame(pca.transform(data_ori))
 
 #plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
 
-data_transform=data_transform.round(1)
+
 
 #Reindex
 state=state.reset_index()
@@ -201,7 +199,6 @@ data_transform=pd.DataFrame(pca.transform(data_ori))
 
 #plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
 
-data_transform=data_transform.round(1)
 
 #Reindex
 state=state.reset_index()
@@ -270,9 +267,7 @@ pca.fit(data_ori)
 
 data_transform=pd.DataFrame(pca.transform(data_ori))
 
-#plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1]) 
-
-data_transform=data_transform.round(1)
+#plt.scatter(data_transform.loc[:,0],data_transform.loc[:,1])
 
 #Reindex
 state=state.reset_index()
@@ -297,6 +292,4 @@ plt.scatter(data_ori_1.loc[:,0],data_ori.loc[:,1])
 #Combine and save
 data_final=pd.concat([data_ori_1,data_ori_2,data_ori_3,data_ori_4])
 data_final.to_csv("data/3data.csv")
-
-
 

@@ -253,6 +253,7 @@ function scatterPlot3d( parent )
       for (var i = 0; i < 1e7; i++) {
         if ((new Date().getTime() - start) > milliseconds){
           break;
+          console.log(start)
         }
       }
     }
