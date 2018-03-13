@@ -36,7 +36,8 @@ var svg2 = d3.select("#_2dChart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .attr("class","p2_svg");
 
 // load data
 d3v3.csv("data/3data.csv", function(error, dat_2d) {
@@ -103,8 +104,9 @@ function sleep(milliseconds) {
     }
 
 
+
 function updateData() {
-      d3.selectAll("circle").remove();
+      d3.select(".p2_svg").selectAll("circle").remove();
       time += Math.PI/8;
       step_p2 = step_p2 % 4 + 1;
       data_f=dat_2d.filter(dat_2d => dat_2d.step === step_p2);
