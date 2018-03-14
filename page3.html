@@ -27,17 +27,36 @@
         margin-left: 20px;
         margin-right: 20px;
     }
+
+    .left-element {
+        background: #728ca6;
+        float: left;
+    }
+
+    .right-element {
+        background: #d46a6a;
+        float: right;
+    }   
 </style>
 <body>
     <div class="canvas">
-        <div id="console" class="row"></div>
-        <div id="rows">
-            <!-- <div class="row">
-                <div id="p3_variance_x"></div>
+        <div id="upper" class="container">
+            <div class="left-element">
+                <div id="console" class="row"></div>
+                <div id="rows"></div>
             </div>
-            <div class="row">
-                <div id="p3_variance_y"></div>
-            </div> -->
+            
+            <div class="right-element">
+                <div id="console_2" class="row"></div>
+                <div id="rows_2"></div>
+            </div>
+                    <!-- <div class="row">
+                        <div id="p3_variance_x"></div>
+                    </div>
+                    <div class="row">
+                        <div id="p3_variance_y"></div>
+                    </div> -->
+                
         </div>
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -52,7 +71,7 @@
 
         var inputconsole = d3.select('#console');
 
-        d3.csv("data/states.csv", d => {
+        d3.csv("data/Wholesale_customers_data_norm.csv", d => {
 
             Object.keys(d[0]).forEach(it => {
                 if(it === '') return;
@@ -87,23 +106,23 @@
                                                         .append("svg")
                                                             .attr("width", svg_dx)
                                                             .attr("height", 70);
-
-                                        var d_variance_x = d3.extent(d, d => +d.varx),
-                                            d_variance_y = d3.extent(d, d => +d.vary);
-
+                                        
+                                        //var d_variance_x = d3.extent(d, d => +d.Milk);
+                                           // d_variance_y = d3.extent(d, d => +d.vary);
+                                        
                                         // x variance
-                                        hx.domain(d_variance_x);
+                                        hx.domain([0,1]);
                                         var horizontal_x = d3.axisBottom(hx);
-
+                                        console.log(`variance_${it}`)
                                         x_line.append("g")
-                                            .attr("id", `variance_x_${it}`)
+                                            .attr("id", `variance_${it}`)
                                             .attr("transform", "translate(0, 50)")
                                             .call(horizontal_x);
                                         
-                                        d3.select(`#variance_x_${it}`)
+                                        d3.select(`#variance_${it}`)
                                             .append("text")
                                             .attr("transform", "translate(400, -10)")
-                                            .text(`variance X(${it})`);
+                                            .text(`Var(${it})`);
                                         
                                         var variance_horizontal_circles = x_line.append("g")
                                                             .selectAll("circle")
@@ -111,14 +130,12 @@
                                                             .enter()
                                                         .append("circle")
                                                             .attr("r", 5)
-                                                            .attr("name", d => d.id)
-                                                            .attr("cx", (d) => hx(+d.varx))
+                                                            .attr("cx", (d) => hx(+d[it]))
                                                             .attr("cy", 50)
                                                             .attr("class", "non_hovered")
                                                             .on("mouseover", p3_circleOver)
                                                             .on("mouseout", p3_circleOut);
-
-                                        // y variance
+                                        /*
                                         hy.domain(d_variance_y);
                                         var horizontal_y = d3.axisBottom(hy);
                                                             //  .tickFormat(formatHsGradAxis);
@@ -143,11 +160,112 @@
                                                             .attr("cy", 50)
                                                             .attr("class", "non_hovered")
                                                             .on("mouseover", p3_circleOver)
-                                                            .on("mouseout", p3_circleOut);
+                                                            .on("mouseout", p3_circleOut);*/
                                     }
                                 });
             });
         });
+
+        // Adding another chart--------------------------------------------
+
+        var inputconsole_p3_2 = d3.select('#console_2');
+
+        d3.csv("data/Wholesale_customers_data_norm_pca.csv", d => {
+
+            Object.keys(d[0]).forEach(it => {
+                if(it === '') return;
+                inputconsole_p3_2.append("div")
+                                .attr("class", "btnDiv")
+                            .append("button")
+                                .attr("class", "btn btn-default")
+                                .attr("id", `btn_${it}`)
+                                .text(it)
+                                .on("click", function() {
+                                    var btn = $(`#btn_${it}`);
+                                    btn.toggleClass('btn-default btn-success');
+                                    
+                                    if(!btn.hasClass("btn-success")) {
+                                        $(`#div_${it}`).remove();
+                                    } else {
+                                        var hx = d3.scaleLinear().range([margin.left, plot_dx]);
+                                        hy = d3.scaleLinear().range([margin.left, plot_dx]);
+
+                                        var div =  d3.select("#rows_2")
+                                                    .append("div")
+                                                        .attr("id", `div_${it}`);
+                                                        
+                                        var x_line = div.append("div")
+                                                            .attr("class", "row")
+                                                        .append("svg")
+                                                            .attr("width", svg_dx)
+                                                            .attr("height", 70);
+
+                                        var y_line =  div.append("div")
+                                                            .attr("class", "row")
+                                                        .append("svg")
+                                                            .attr("width", svg_dx)
+                                                            .attr("height", 70);
+
+                                        var d_variance_x = d3.extent(d, d => +d[it]);
+                                          //  d_variance_y = d3.extent(d, d => +d.vary);
+
+                                        // x variance
+                                        hx.domain([-1,1]);
+                                        var horizontal_x = d3.axisBottom(hx);
+
+                                        x_line.append("g")
+                                            .attr("id", `variance_x_${it}`)
+                                            .attr("transform", "translate(0, 50)")
+                                            .call(horizontal_x);
+                                        
+                                        d3.select(`#variance_x_${it}`)
+                                            .append("text")
+                                            .attr("transform", "translate(400, -10)")
+                                            .text(`Var(${it})`);
+                                        
+                                        var variance_horizontal_circles = x_line.append("g")
+                                                            .selectAll("circle")
+                                                            .data(d)
+                                                            .enter()
+                                                        .append("circle")
+                                                            .attr("r", 5)
+                                                            .attr("cx", (d) => hx(+d[it]))
+                                                            .attr("cy", 50)
+                                                            .attr("class", "non_hovered")
+                                                            .on("mouseover", p3_circleOver)
+                                                            .on("mouseout", p3_circleOut);
+
+                                        // y variance
+                                       /* hy.domain(d_variance_y);
+                                        var horizontal_y = d3.axisBottom(hy);
+                                                            //  .tickFormat(formatHsGradAxis);
+                                        y_line.append("g")
+                                            .attr("id",`variance_y_${it}`)
+                                            .attr("transform", "translate(0, 50)")
+                                            .call(horizontal_y);
+                                        
+                                        d3.select(`#variance_y_${it}`)
+                                            .append("text")
+                                            .attr("transform", "translate(400, -10)")
+                                            .text(`variance Y (${it})`);
+                                        
+                                        var variance_horizontal_circles = y_line.append("g")
+                                                            .selectAll("circle")
+                                                            .data(d)
+                                                            .enter()
+                                                        .append("circle")
+                                                            .attr("r", 5)
+                                                            .attr("name", d => d.id)
+                                                            .attr("cx", (d) => hy(+d.vary))
+                                                            .attr("cy", 50)
+                                                            .attr("class", "non_hovered")
+                                                            .on("mouseover", p3_circleOver)
+                                                            .on("mouseout", p3_circleOut);*/
+                                    }
+                                });
+            });
+        });
+        // End of Adding another chart-------------------------------
 
         function p3_circleOver() {
             // var id = d3.select(this).attr("name");

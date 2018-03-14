@@ -13,3 +13,15 @@ body {
   .dot {
     stroke: #000;
   }
+  .left-element {
+    background: #728ca6;
+    float: left;
+}
+
+.right-element {
+    background: #d46a6a;
+    float: right;
+}  
+.container{
+  width:20px;
+}
