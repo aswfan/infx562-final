@@ -8,7 +8,6 @@ Created on Wed Mar  7 15:21:10 2018
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
-import string
 from sklearn import preprocessing
 
 import matplotlib.pyplot as plt
@@ -20,7 +19,7 @@ def rangeto_positive(data_pd):
     return data_pd
 
 
-def rangeto_range_01(data_pd):
+def rangeto_01(data_pd):
     k=len(data_pd.columns)
     for i in range(0,k):
         data_pd.iloc[:,i]=data_pd.iloc[:,i]/max(data_pd.iloc[:,i])
